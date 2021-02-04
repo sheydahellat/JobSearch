@@ -1,4 +1,6 @@
-public class ticket {
+import java.io.Serializable;
+
+public class ticket implements Serializable {
     private String company;
     private String title;
     private String contract;
