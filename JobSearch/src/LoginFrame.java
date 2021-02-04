@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class LoginFrame extends JFrame implements ActionListener {
@@ -14,13 +15,15 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton loginButton = new JButton("LOGIN");
     JButton resetButton = new JButton("RESET");
     JCheckBox showPassword = new JCheckBox("Show Password");
+    ArrayList<User> all_users = new ArrayList<>();
 
 
-    LoginFrame() {
+    LoginFrame(ArrayList<User> all_users) {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
+        this.all_users=all_users;
 
     }
 
@@ -65,11 +68,20 @@ public class LoginFrame extends JFrame implements ActionListener {
             String pwdText;
             userText = userTextField.getText();
             pwdText = passwordField.getText();
-            if (userText.equalsIgnoreCase("mehtab") && pwdText.equalsIgnoreCase("12345")) {
-                JOptionPane.showMessageDialog(this, "Login Successful");
-            } else {
-                JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+            for (int i = 0; i <all_users.size() ; i++) {
+                if(userText.equals((all_users.get(i).UserName))){
+                    if(pwdText.equals((all_users.get(i).Password))){
+                        JOptionPane.showMessageDialog(this, "Login Successful");
+                        return;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "Wrong Password");
+                        return;
+                    }
+                }
             }
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+
 
         }
         //Coding Part of RESET button

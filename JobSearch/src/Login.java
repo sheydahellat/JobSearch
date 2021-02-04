@@ -8,7 +8,9 @@ import java.util.Scanner;
 
 public class Login {
     public static void main(String[] a) throws FileNotFoundException {
-        LoginFrame frame = new LoginFrame();
+        ArrayList <User> all_users = new ArrayList<>();
+        all_users.add(new User("sheyda","1234"));
+        LoginFrame frame = new LoginFrame(all_users);
         frame.setTitle("Login Form");
         frame.setVisible(true);
         frame.setBounds(10, 10, 470, 600);
@@ -22,6 +24,7 @@ public class Login {
 
 
         ArrayList <ticket> all_tickets = new ArrayList<>();
+
 
     }
 }
