@@ -9,13 +9,11 @@ import java.util.Scanner;
 public class Login {
     public static void main(String[] a) throws IOException, ClassNotFoundException {
         ArrayList <User> all_users = new ArrayList<>();
+        ArrayList <ticket> all_tickets = new ArrayList<>();
+        ArrayList <company> companies_list = new ArrayList<>();
         all_users.add(new User("sheyda","1234"));
-        LoginFrame frame = new LoginFrame(all_users);
-        frame.setTitle("Login Form");
-        frame.setVisible(true);
-        frame.setBounds(10, 10, 470, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+
+
 
 
 
@@ -28,15 +26,19 @@ public class Login {
         ObjectInputStream companies_database_reader = new ObjectInputStream(new FileInputStream(companies_database));
 
 
-        ArrayList <ticket> all_tickets = new ArrayList<>();
-        ArrayList <company> companies_list = new ArrayList<>();
 
         ticket ticket1 = new ticket("snapp", "product manager", "senior",1000,1500,"tehran","full time,insurance");
         ticket ticket2 = new ticket("tapsi", "DevOps", "senior",900,1000,"tehran","full time");
         ticket ticket3 = new ticket("namava", "backend developer", "junior",500,600,"isfahan","part time");
         all_tickets.add(ticket1);
         all_tickets.add(ticket2);
-       all_tickets.add(ticket3);
+        all_tickets.add(ticket3);
+        LoginFrame frame = new LoginFrame(all_users,all_tickets);
+        frame.setTitle("Login Form");
+        frame.setVisible(true);
+        frame.setBounds(10, 10, 470, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
 
         company c1 = new company("snapp","tehran","IT",200,"saadatabad","شرکت اسنپ(سهامی خاص)");
         company c2 = new company("tapsi","tehran","transport",150,"seyedkhandan","شرکت تپسی");
@@ -45,7 +47,7 @@ public class Login {
 //        companies_list.add(c2);
 //        companies_list.add(c3);
 
-         jobSearchGUI jSearch = new jobSearchGUI(all_tickets);
+
 
 
 

@@ -13,17 +13,19 @@ public class LoginFrame extends JFrame implements ActionListener {
     JTextField userTextField = new JTextField();
     JPasswordField passwordField = new JPasswordField();
     JButton loginButton = new JButton("LOGIN");
-    JButton resetButton = new JButton("RESET");
+    JButton resetButton = new JButton("Register");
     JCheckBox showPassword = new JCheckBox("Show Password");
     ArrayList<User> all_users = new ArrayList<>();
+    ArrayList <ticket> all_tickets = new ArrayList<>();
 
 
-    LoginFrame(ArrayList<User> all_users) {
+    LoginFrame(ArrayList<User> all_users,ArrayList <ticket> all_tickets ) {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
         this.all_users=all_users;
+        this.all_tickets=all_tickets;
 
     }
 
@@ -72,6 +74,9 @@ public class LoginFrame extends JFrame implements ActionListener {
                 if(userText.equals((all_users.get(i).UserName))){
                     if(pwdText.equals((all_users.get(i).Password))){
                         JOptionPane.showMessageDialog(this, "Login Successful");
+                        jobSearchGUI jSearch = new jobSearchGUI(all_tickets);
+                        this.setVisible(false);
+                        jSearch.setVisible(true);
                         return;
                     }
                     else{
@@ -86,8 +91,7 @@ public class LoginFrame extends JFrame implements ActionListener {
         }
         //Coding Part of RESET button
         if (e.getSource() == resetButton) {
-            userTextField.setText("");
-            passwordField.setText("");
+            all_users.add(new User(userTextField.getText(),passwordField.getText()));
         }
         //Coding Part of showPassword JCheckBox
         if (e.getSource() == showPassword) {

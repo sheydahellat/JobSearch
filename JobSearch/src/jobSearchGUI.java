@@ -183,7 +183,12 @@ public class jobSearchGUI extends JFrame implements ActionListener {
                         JTable target = (JTable)me.getSource();
                         int row = target.getSelectedRow(); // select a row
                         int column = target.getSelectedColumn(); // select a column
-                        Detail detail=new Detail(jobTable.getValueAt(row, 0).toString(),jobTable.getValueAt(row, 1).toString(),"ff",200,"teh","khob");
+                        Detail detail=new Detail(jobTable.getValueAt(row, 0).toString()
+                                ,"از سال ۱۲۹۹ تا به امروز بهترین خدمات را ارایه می دهیم"
+                                ,jobTable.getValueAt(row, 1).toString()
+                                ,Integer.parseInt(jobTable.getValueAt(row, 4).toString())
+                                , jobTable.getValueAt(row, 5).toString()
+                                ,jobTable.getValueAt(row, 6).toString());
                         DetailFrame detailFrame=new DetailFrame(detail);
                         detailFrame.setVisible(true);
                        
