@@ -98,7 +98,7 @@ public class jobSearchGUI extends JFrame implements ActionListener {
         else if(internButton.isSelected())
             contract="intern";
         else
-            contract = null;
+            contract = "not";
 
 
         ticket result_ticket = new ticket(null, null, contract,resultSalary,0, resultTown, null);
@@ -108,23 +108,23 @@ public class jobSearchGUI extends JFrame implements ActionListener {
     public ArrayList<ticket> search(ticket restult_ticket,ArrayList<ticket> all_tickets){
         ArrayList<ticket>searched_tickets=new ArrayList<>();
 
-        if(!(restult_ticket.getContract().equals(null)) && !(restult_ticket.getTown().equals(""))) {
+        if(!(restult_ticket.getContract().equals("not")) && !(restult_ticket.getTown().equals(""))) {
             System.out.println("it was me first");
             searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getTown().equals(restult_ticket.getTown()) && c.getContract().equals(restult_ticket.getContract())).collect(Collectors.toList());
         }
-        else if(!(restult_ticket.getContract().equals(null)) && (restult_ticket.getTown().equals(""))) {
+        else if(!(restult_ticket.getContract().equals("not")) && (restult_ticket.getTown().equals(""))) {
             System.out.println("it was me second");
             searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getContract().equals(restult_ticket.getContract())).collect(Collectors.toList());
         }
-        else if((restult_ticket.getContract().equals(null)) && !(restult_ticket.getTown().equals(""))) {
+        else if((restult_ticket.getContract().equals("not")) && !(restult_ticket.getTown().equals(""))) {
             System.out.println("it was me third");
-            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getTown().equals(restult_ticket.getTown()));
+            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getTown().equals(restult_ticket.getTown())).collect(Collectors.toList());
         }
         else
             //((restult_ticket.getContract().equals(null)) && (restult_ticket.getTown().equals("")))
         {
             System.out.println("it was me last");
-            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage());
+            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage()).collect(Collectors.toList());
         }
         /* for (int i = 0; i < all_tickets.size(); i++) {
             if(!(all_tickets.get(i).getContract().equals(restult_ticket.getContract())) & !(restult_ticket.getContract().equals(null)))
