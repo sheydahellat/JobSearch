@@ -34,9 +34,9 @@ public class Login {
         ticket ticket1 = new ticket("snapp", "product manager", "senior",1000,1500,"tehran","full time,insurance");
         ticket ticket2 = new ticket("tapsi", "DevOps", "senior",900,1000,"tehran","full time");
         ticket ticket3 = new ticket("namava", "backend developer", "junior",500,600,"isfahan","part time");
-//        all_tickets.add(ticket1);
-//        all_tickets.add(ticket2);
- //       all_tickets.add(ticket3);
+        all_tickets.add(ticket1);
+        all_tickets.add(ticket2);
+       all_tickets.add(ticket3);
 
         company c1 = new company("snapp","tehran","IT",200,"saadatabad","شرکت اسنپ(سهامی خاص)");
         company c2 = new company("tapsi","tehran","transport",150,"seyedkhandan","شرکت تپسی");

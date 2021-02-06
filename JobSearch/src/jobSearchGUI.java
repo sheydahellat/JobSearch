@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class jobSearchGUI extends JFrame implements ActionListener {
@@ -78,26 +79,27 @@ public class jobSearchGUI extends JFrame implements ActionListener {
         searchButton.addActionListener(this);
     }
     public ticket returnData(){
-        String resultTown=null;
-        resultTown = citySearch.getText();
-        String contract=null;
+        String resultTown = citySearch.getText();
+        String contract;
         int resultSalary=0;
         try {
              resultSalary= Integer.parseInt(salary.getText());
         }catch (NumberFormatException e){
              resultSalary=0;
         }
-
         if(seniorButton.isSelected())
             contract="senior";
         else if(juniorButton.isSelected())
-            contract="jubior";
+            contract="junior";
         else if(partTimeButton.isSelected())
             contract="partTime";
         else if(fullButton.isSelected())
             contract="fullTime";
         else if(internButton.isSelected())
             contract="intern";
+        else
+            contract = null;
+
 
         ticket result_ticket = new ticket(null, null, contract,resultSalary,0, resultTown, null);
         return(result_ticket);
@@ -105,7 +107,26 @@ public class jobSearchGUI extends JFrame implements ActionListener {
 
     public ArrayList<ticket> search(ticket restult_ticket,ArrayList<ticket> all_tickets){
         ArrayList<ticket>searched_tickets=new ArrayList<>();
-        for (int i = 0; i < all_tickets.size(); i++) {
+
+        if(!(restult_ticket.getContract().equals(null)) && !(restult_ticket.getTown().equals(""))) {
+            System.out.println("it was me first");
+            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getTown().equals(restult_ticket.getTown()) && c.getContract().equals(restult_ticket.getContract())).collect(Collectors.toList());
+        }
+        else if(!(restult_ticket.getContract().equals(null)) && (restult_ticket.getTown().equals(""))) {
+            System.out.println("it was me second");
+            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getContract().equals(restult_ticket.getContract())).collect(Collectors.toList());
+        }
+        else if((restult_ticket.getContract().equals(null)) && !(restult_ticket.getTown().equals(""))) {
+            System.out.println("it was me third");
+            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage() && c.getTown().equals(restult_ticket.getTown()));
+        }
+        else
+            //((restult_ticket.getContract().equals(null)) && (restult_ticket.getTown().equals("")))
+        {
+            System.out.println("it was me last");
+            searched_tickets = (ArrayList<ticket>) all_tickets.stream().filter(c -> c.getMin_wage() >= restult_ticket.getMin_wage());
+        }
+        /* for (int i = 0; i < all_tickets.size(); i++) {
             if(!(all_tickets.get(i).getContract().equals(restult_ticket.getContract())) & !(restult_ticket.getContract().equals(null)))
                 break;
             else if(! (all_tickets.get(i).getMin_wage() >= restult_ticket.getMin_wage()) )
@@ -115,7 +136,7 @@ public class jobSearchGUI extends JFrame implements ActionListener {
             else
                 searched_tickets.add(all_tickets.get(i));
 
-        }
+        }*/
         return searched_tickets;
     }
 
@@ -126,12 +147,19 @@ public class jobSearchGUI extends JFrame implements ActionListener {
         if(e.getSource() == searchButton){
             ticket jSearch = returnData();
             searchedTickets=search(jSearch, all_ticket);
+            System.out.println("company");
             System.out.println(jSearch.getCompany());
+            System.out.println("title");
             System.out.println(jSearch.getTitle());
+            System.out.println("contract");
             System.out.println(jSearch.getContract());
+            System.out.println("min");
             System.out.println(jSearch.getMin_wage());
+            System.out.println("max");
             System.out.println(jSearch.getMax_wage());
+            System.out.println("town");
             System.out.println(jSearch.getTown());
+            System.out.println("description");
             System.out.println(jSearch.getDescription());
 
             String [][] jobss=new String[searchedTickets.size()][7];
