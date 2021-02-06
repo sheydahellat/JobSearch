@@ -9,13 +9,9 @@ public class jobSearchGUI extends JFrame implements ActionListener {
         private final String WINDOWS_TITLE = "jobs search";
         private final int WIDTH = 500, HEIGHT = 500;
         private final int X = 100, Y = 100;
-        ArrayList<Job> jobs;
-    String column[]={"city","salary","partTime","fullTime","intern","senior","junior"};
-    String data[][] = {{"hey ", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}
-            , {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}, {"hey", "hey"}
-            , {"hey", "hey"}, {"hey", "hey"}};
-    String columns[] = {"First", "Second"};
-     //String jobss[][]=new String [jobs.size()][7];
+        ArrayList<ticket> searchedTickets;
+        ArrayList<ticket> all_ticket;
+     String column[]={"company","title","contract","min_wage","mux_wage","town","description"};
      Container container = getContentPane();
      JLabel cityLabel=new JLabel("city:");
      JLabel salaryLabel=new JLabel("min salary:");
@@ -27,16 +23,13 @@ public class jobSearchGUI extends JFrame implements ActionListener {
      JCheckBox partTimeButton =new JCheckBox ("PartTime");
      JCheckBox fullButton =new JCheckBox ("FullTime");
      JCheckBox internButton =new JCheckBox ("Intern");
-    // JTable jobTable=new JTable(jobss,column);
      JTable jobTable;
-     //JScrollPane scrollBar1=new JScrollPane(jobTable);
-     //jobtable tu balai
-    JPanel panel = new JPanel();
+     JPanel panel = new JPanel();
 
-    public jobSearchGUI(ArrayList<Job> jobs) {
+    public jobSearchGUI(ArrayList<ticket> all_ticket) {
             super();
             panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
-            this.jobs=jobs;
+            this.all_ticket=all_ticket;
             this.setTitle(WINDOWS_TITLE);
             this.setLayout(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,24 +40,11 @@ public class jobSearchGUI extends JFrame implements ActionListener {
             setLocationAndSize();
             addComponentsToContainer();
             addActionEvent();
-       /* String jobss[][]=new String [jobs.size()][7];
-         for (int i = 0; i <jobs.size() ; i++) {
-                jobss[i][0]= jobs.get(i).town;
-                jobss[i][1]= Integer.toString(jobs.get(i).salary);
-                jobss[i][2]= String.valueOf(jobs.get(i).senior);
-                jobss[i][3]= String.valueOf(jobs.get(i).junior);
-                jobss[i][4]= String.valueOf(jobs.get(i).partTime);
-                jobss[i][5]=String.valueOf(jobs.get(i).fullTime);
-                jobss[i][6]=String.valueOf(jobs.get(i).intern);
-        }*/
 
         }
 
 
-           // searchButton.addActionListener(e -> jobTable.setModel(DbUtils.resultSetToTableModel(new Job().search(citySearch.getText(), panel))));
-
     public void setLocationAndSize() {
-        //jobTable.setBounds(0, 0, 400, 500);
         cityLabel.setBounds(400, 0, 100, 30);
         citySearch.setBounds(400,30,100,30);
         seniorButton.setBounds(400,60,100,30);
@@ -80,7 +60,6 @@ public class jobSearchGUI extends JFrame implements ActionListener {
     }
 
     public void addComponentsToContainer() {
-        //container.add(scrollBar1);
         container.add(searchButton);
         container.add(citySearch);
         container.add(searchButton);
@@ -98,44 +77,72 @@ public class jobSearchGUI extends JFrame implements ActionListener {
     public void addActionEvent() {
         searchButton.addActionListener(this);
     }
-    public Job returnData(){
-        String resultTown = citySearch.getText();
-        int resultSalary;
+    public ticket returnData(){
+        String resultTown=null;
+        resultTown = citySearch.getText();
+        String contract=null;
+        int resultSalary=0;
         try {
              resultSalary= Integer.parseInt(salary.getText());
         }catch (NumberFormatException e){
              resultSalary=0;
         }
 
-        boolean resultSenior=seniorButton.isSelected();
-        boolean resultJunior=juniorButton.isSelected();
-        boolean resultPartTime=partTimeButton.isSelected();
-        boolean resultFullTime=fullButton.isSelected();
-        boolean resultIntern=internButton.isSelected();
-        Job searchResultJob = new Job(resultTown,resultSalary,resultSenior,resultJunior,resultPartTime,resultFullTime,resultIntern);
-        return(searchResultJob);
+        if(seniorButton.isSelected())
+            contract="senior";
+        else if(juniorButton.isSelected())
+            contract="jubior";
+        else if(partTimeButton.isSelected())
+            contract="partTime";
+        else if(fullButton.isSelected())
+            contract="fullTime";
+        else if(internButton.isSelected())
+            contract="intern";
+
+        ticket result_ticket = new ticket(null, null, contract,resultSalary,0, resultTown, null);
+        return(result_ticket);
     }
+
+    public ArrayList<ticket> search(ticket restult_ticket,ArrayList<ticket> all_tickets){
+        ArrayList<ticket>searched_tickets=new ArrayList<>();
+        for (int i = 0; i < all_tickets.size(); i++) {
+            if(!(all_tickets.get(i).getContract().equals(restult_ticket.getContract())) & !(restult_ticket.getContract().equals(null)))
+                break;
+            else if(! (all_tickets.get(i).getMin_wage() >= restult_ticket.getMin_wage()) )
+                break;
+            else if(!(all_tickets.get(i).getTown().equals(restult_ticket.getTown())) & !(restult_ticket.getTown().equals(null)))
+                break;
+            else
+                searched_tickets.add(all_tickets.get(i));
+
+        }
+        return searched_tickets;
+    }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e ) {
         if(e.getSource() == searchButton){
-            Job jSearch = returnData();
-            System.out.println(jSearch.town);
-            System.out.println(Integer.toString(jSearch.salary));
-            System.out.println(String.valueOf(jSearch.senior));
-            System.out.println(String.valueOf(jSearch.junior));
-            System.out.println(String.valueOf(jSearch.partTime));
-            System.out.println(String.valueOf(jSearch.fullTime));
-            System.out.println(String.valueOf(jSearch.intern));
-            String [][] jobss=new String[jobs.size()][7];
-            for (int i = 0; i <jobs.size() ; i++) {
-                jobss[i][0]= jobs.get(i).town;
-                jobss[i][1]= Integer.toString(jobs.get(i).salary);
-                jobss[i][2]= String.valueOf(jobs.get(i).senior);
-                jobss[i][3]= String.valueOf(jobs.get(i).junior);
-                jobss[i][4]= String.valueOf(jobs.get(i).partTime);
-                jobss[i][5]=String.valueOf(jobs.get(i).fullTime);
-                jobss[i][6]=String.valueOf(jobs.get(i).intern);
+            ticket jSearch = returnData();
+            searchedTickets=search(jSearch, all_ticket);
+            System.out.println(jSearch.getCompany());
+            System.out.println(jSearch.getTitle());
+            System.out.println(jSearch.getContract());
+            System.out.println(jSearch.getMin_wage());
+            System.out.println(jSearch.getMax_wage());
+            System.out.println(jSearch.getTown());
+            System.out.println(jSearch.getDescription());
+
+            String [][] jobss=new String[searchedTickets.size()][7];
+            for (int i = 0; i <searchedTickets.size() ; i++) {
+                jobss[i][0]= searchedTickets.get(i).getCompany();
+                jobss[i][1]= searchedTickets.get(i).getTitle();
+                jobss[i][2]= searchedTickets.get(i).getContract();
+                jobss[i][3]= String.valueOf(searchedTickets.get(i).getMin_wage());
+                jobss[i][4]= String.valueOf(searchedTickets.get(i).getMax_wage());
+                jobss[i][5]=searchedTickets.get(i).getTown();
+                jobss[i][6]=searchedTickets.get(i).getDescription();
             }
             //panel.removeAll();
             jobTable = new JTable(jobss, column);

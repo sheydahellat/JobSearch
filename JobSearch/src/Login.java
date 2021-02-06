@@ -36,8 +36,8 @@ public class Login {
         ticket ticket3 = new ticket("namava", "backend developer", "junior",500,600,"isfahan","part time");
 //        all_tickets.add(ticket1);
 //        all_tickets.add(ticket2);
-//        all_tickets.add(ticket3);
-//
+ //       all_tickets.add(ticket3);
+
         company c1 = new company("snapp","tehran","IT",200,"saadatabad","شرکت اسنپ(سهامی خاص)");
         company c2 = new company("tapsi","tehran","transport",150,"seyedkhandan","شرکت تپسی");
         company c3 = new company("namava","isfahan","telecom",110,"emam square","شرکت نماوا شعبه ی اصفهان");
@@ -45,6 +45,7 @@ public class Login {
 //        companies_list.add(c2);
 //        companies_list.add(c3);
 
+         jobSearchGUI jSearch = new jobSearchGUI(all_tickets);
 
 
 
