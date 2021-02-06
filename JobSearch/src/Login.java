@@ -16,8 +16,7 @@ public class Login {
         frame.setBounds(10, 10, 470, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        DetailFrame df =new DetailFrame();
-        df.setVisible(true);
+
 
 
 

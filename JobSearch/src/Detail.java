@@ -7,12 +7,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Detail {
-    private String name;
-    private String history;
-    private String jobTitle;
-    private int wage;
-    private String city;
-    private String description;
+    public String name;
+    public String history;
+    public String jobTitle;
+    public int wage;
+    public String city;
+    public String description;
 
 
     public Detail(String name, String history, String jobTitle, int wage, String city, String description) {

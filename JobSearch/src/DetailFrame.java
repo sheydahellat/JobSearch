@@ -26,6 +26,7 @@ public class DetailFrame extends JFrame implements ActionListener{
         this.setSize(700, 700);
         setLocationAndSize();
         setLayoutManager();
+        this.detail=detail;
         container.add(nameLabel);
         container.add(historyLabel);
         container.add(jobTitleLabel);
@@ -39,9 +40,15 @@ public class DetailFrame extends JFrame implements ActionListener{
         container.add(wageLabel2);
         container.add(cityLabel2);
         container.add(descriptionLabel2);
-        this.detail=detail;
+        nameLabel2.setText(this.detail.name);
+        historyLabel2.setText(this.detail.history);
+        jobTitleLabel2.setText(this.detail.jobTitle);
+        wageLabel2.setText(String.valueOf(this.detail.wage));
+        cityLabel2.setText(this.detail.city);
+
     }
     DetailFrame() {
+        this.setVisible(false);
         this.setSize(700, 700);
         setLocationAndSize();
         setLayoutManager();
