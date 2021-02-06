@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 
@@ -147,6 +149,19 @@ public class jobSearchGUI extends JFrame implements ActionListener {
             //panel.removeAll();
             jobTable = new JTable(jobss, column);
             panel.add(new JScrollPane(jobTable));
+            jobTable.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent me) {
+                        // to detect doble click events
+                        JTable target = (JTable)me.getSource();
+                        int row = target.getSelectedRow(); // select a row
+                        int column = target.getSelectedColumn(); // select a column
+                        Detail detail=new Detail(jobTable.getValueAt(row, 0).toString(),jobTable.getValueAt(row, 1).toString(),"ff",200,"teh","khob");
+                        DetailFrame detailFrame=new DetailFrame(detail);
+                        detailFrame.setVisible(true);
+                       
+
+                }
+            });
             repaint();
             revalidate();
         }
