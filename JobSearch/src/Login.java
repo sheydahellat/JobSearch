@@ -12,12 +12,6 @@ public class Login {
         ArrayList <ticket> all_tickets = new ArrayList<>();
         ArrayList <company> companies_list = new ArrayList<>();
         all_users.add(new User("sheyda","1234"));
-
-
-
-
-
-
         File database = new File("database");
         ObjectInputStream database_reader = new ObjectInputStream(new FileInputStream(database));
 
@@ -33,19 +27,20 @@ public class Login {
         all_tickets.add(ticket1);
         all_tickets.add(ticket2);
         all_tickets.add(ticket3);
-        LoginFrame frame = new LoginFrame(all_users,all_tickets);
+
+
+        company c1 = new company("snapp","tehran","IT",200,"saadatabad","شرکت اسنپ(سهامی خاص)");
+        company c2 = new company("tapsi","tehran","transport",150,"seyedkhandan","شرکت تپسی");
+        company c3 = new company("namava","isfahan","telecom",110,"emam square","شرکت نماوا شعبه ی اصفهان");
+        companies_list.add(c1);
+        companies_list.add(c2);
+        companies_list.add(c3);
+        LoginFrame frame = new LoginFrame(all_users,all_tickets,companies_list);
         frame.setTitle("Login Form");
         frame.setVisible(true);
         frame.setBounds(10, 10, 470, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-
-        company c1 = new company("snapp","tehran","IT",200,"saadatabad","شرکت اسنپ(سهامی خاص)");
-        company c2 = new company("tapsi","tehran","transport",150,"seyedkhandan","شرکت تپسی");
-        company c3 = new company("namava","isfahan","telecom",110,"emam square","شرکت نماوا شعبه ی اصفهان");
-//        companies_list.add(c1);
-//        companies_list.add(c2);
-//        companies_list.add(c3);
 
 
 

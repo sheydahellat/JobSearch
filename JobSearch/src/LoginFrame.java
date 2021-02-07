@@ -17,15 +17,17 @@ public class LoginFrame extends JFrame implements ActionListener {
     JCheckBox showPassword = new JCheckBox("Show Password");
     ArrayList<User> all_users = new ArrayList<>();
     ArrayList <ticket> all_tickets = new ArrayList<>();
+    ArrayList <company> all_company = new ArrayList<>();
 
 
-    LoginFrame(ArrayList<User> all_users,ArrayList <ticket> all_tickets ) {
+    LoginFrame(ArrayList<User> all_users,ArrayList <ticket> all_tickets ,ArrayList <company> all_company) {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
         this.all_users=all_users;
         this.all_tickets=all_tickets;
+        this.all_company=all_company;
 
     }
 
@@ -74,7 +76,7 @@ public class LoginFrame extends JFrame implements ActionListener {
                 if(userText.equals((all_users.get(i).UserName))){
                     if(pwdText.equals((all_users.get(i).Password))){
                         JOptionPane.showMessageDialog(this, "Login Successful");
-                        jobSearchGUI jSearch = new jobSearchGUI(all_tickets);
+                        jobSearchGUI jSearch = new jobSearchGUI(all_tickets,all_company);
                         this.setVisible(false);
                         jSearch.setVisible(true);
                         return;

@@ -14,6 +14,7 @@ public class jobSearchGUI extends JFrame implements ActionListener {
         private final int X = 100, Y = 100;
         ArrayList<ticket> searchedTickets;
         ArrayList<ticket> all_ticket;
+        ArrayList<company> all_company;
      String column[]={"company","title","contract","min_wage","mux_wage","town","description"};
      Container container = getContentPane();
      JLabel cityLabel=new JLabel("city:");
@@ -29,10 +30,11 @@ public class jobSearchGUI extends JFrame implements ActionListener {
      JTable jobTable;
      JPanel panel = new JPanel();
 
-    public jobSearchGUI(ArrayList<ticket> all_ticket) {
+    public jobSearchGUI(ArrayList<ticket> all_ticket,ArrayList<company> all_company) {
             super();
             panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
             this.all_ticket=all_ticket;
+            this.all_company=all_company;
             this.setTitle(WINDOWS_TITLE);
             this.setLayout(null);
             this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -183,14 +185,23 @@ public class jobSearchGUI extends JFrame implements ActionListener {
                         JTable target = (JTable)me.getSource();
                         int row = target.getSelectedRow(); // select a row
                         int column = target.getSelectedColumn(); // select a column
-                        Detail detail=new Detail(jobTable.getValueAt(row, 0).toString()
-                                ,"از سال ۱۲۹۹ تا به امروز بهترین خدمات را ارایه می دهیم"
-                                ,jobTable.getValueAt(row, 1).toString()
-                                ,Integer.parseInt(jobTable.getValueAt(row, 4).toString())
-                                , jobTable.getValueAt(row, 5).toString()
-                                ,jobTable.getValueAt(row, 6).toString());
-                        DetailFrame detailFrame=new DetailFrame(detail);
-                        detailFrame.setVisible(true);
+                        String company_name=jobTable.getValueAt(row, 0).toString();
+                        for (int i = 0; i <all_company.size() ; i++) {
+                            if(all_company.get(i).getName().equals(company_name))
+                            {
+                                Detail detail=new Detail(all_company.get(i).getName()
+                                        ,all_company.get(i).getAddress()
+                                        ,all_company.get(i).getDescription()
+                                        ,all_company.get(i).getEmployees()
+                                        , all_company.get(i).getField()
+                                        ,all_company.get(i).getTown());
+                                DetailFrame detailFrame=new DetailFrame(detail);
+                                detailFrame.setVisible(true);
+                                break;
+
+                            }
+                        }
+
                        
 
                 }
